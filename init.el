@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;; 初始化软件包管理器
 (package-initialize)
 

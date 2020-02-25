@@ -10,7 +10,7 @@
 # Undo-tree save-files
 *.~undo-tree
 
-# Ignore all files / directory but init.el and init/(except init/custom.el)
+# Ignore all files or directory but init.el and init/(except init/custom.el)
 /*
 !.gitignore
 !/init/

@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;; Org-mode 语法高亮
 (use-package org
   :config (setq org-src-fontify-natively t)

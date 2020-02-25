@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;; 软件源
 (setq package-archives '(("gnu" . "https://elpa.emacs-china.org/gnu/")
 			 ("melpa" . "https://elpa.emacs-china.org/melpa/")))
@@ -13,7 +15,7 @@
 	 ("M-p" . nil)
 	 ("C-n" . #'company-select-next)
 	 ("C-p" . #'company-select-previous)
-	 ))
+	 ("ESC" . #'company-abort)))
 
 ;; 开启 fcitx 插件，以便配置 fcitx 在 emacs 下的行为
 (use-package fcitx
@@ -125,14 +127,19 @@
 
 (use-package evil-nerd-commenter
   :after (evil evil-leader)
-  :commands (evilnc-default-hotkeys)
-  :config (progn
-	    (define-key evil-normal-state-map
-	      (kbd (concat evil-leader/leader " ;"))
-	      'evilnc-comment-or-uncomment-lines)
-	    (define-key evil-visual-state-map
-	      (kbd (concat evil-leader/leader " ;"))
-	      'evilnc-comment-or-uncomment-lines)))
+  :bind (("M-;" . #'evilnc-comment-or-uncomment-lines)
+	 ("C-c l" . #'evilnc-quick-comment-or-uncomment-to-the-line)
+	 ("C-c c" . #'evilnc-copy-and-comment-lines)
+	 ("C-c p" . #'evilnc-comment-or-uncomment-paragraphs))
+  :config (evil-leader/set-key
+	    "cl" 'evilnc-comment-or-uncomment-lines
+	    "ci" 'evilnc-quick-comment-or-uncomment-to-the-line
+	    "cc" 'evilnc-copy-and-comment-lines
+	    "cp" 'evilnc-comment-or-uncomment-paragraphs
+	    "cr" 'comment-or-uncomment-region
+	    "cv" 'evilnc-toggle-invert-comment-line-by-line
+	    "c." 'evilnc-copy-and-comment-operator
+	    "c," 'evilnc-comment-operator))
 
 ;; Which-key 配置
 (use-package which-key

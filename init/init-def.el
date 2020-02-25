@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 (defun open-init-files (init-files)
   "快速打开配置文件"
   (interactive

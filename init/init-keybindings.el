@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;; 为 open-init-files 函数设置快捷键
 (global-set-key (kbd "<f12>") #'open-init-files)
 
@@ -20,6 +22,7 @@
   "xe" #'eval-last-sexp ; 执行当前语句
   )
 (evil-leader/set-key-for-mode #'lisp-interaction-mode
+  "xe" #'eval-last-sexp ; 执行当前语句
   "j" #'eval-print-last-sexp ; 执行当前语句并在当前 buffer 输出
   )
 
