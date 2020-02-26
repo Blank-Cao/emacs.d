@@ -41,7 +41,7 @@
 
 ;; 设置 Hippie Expand
 (use-package hippie-expand
-  :bind ("M-/" . hippie-expand)
+  :bind ("S-TAB" . hippie-expand)
   :config (setq hippie-expand-try-functions-list
 		'(try-expand-debbrev
 		  try-expand-debbrev-all-buffers
@@ -76,11 +76,6 @@
   :after dired
   :config (setq dired-dwin-target 1)
   :defer t
-  :ensure nil)
-
-;; 为 iedit 绑定快捷键
-(use-package iedit
-  :bind ("M-s e" . iedit-mode)
   :ensure nil)
 
 (provide 'init-enrich)

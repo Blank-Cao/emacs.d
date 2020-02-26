@@ -13,6 +13,8 @@
 # Ignore all files or directory but init.el and init/(except init/custom.el)
 /*
 !.gitignore
+!README.md
+!LICENSE
 !/init/
 !/init.el
 /init/custom.el

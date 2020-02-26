@@ -42,8 +42,7 @@
 
 ;; 启用 swiper 并配置
 (use-package swiper
-  :bind ("C-s" . #'swiper-isearch)
-  :config (setq search-default-mode #'char-fold-to-regexp))
+  :bind ("C-s" . #'swiper-isearch))
 
 ;; 使用 Hungry-delete
 (use-package hungry-delete
@@ -89,18 +88,20 @@
 	            web-mode-code-indent-offset 4)))
   :defer t)
 
-;; window-numbering 配置
-(use-package window-numbering
+;; ace-window 设置
+(use-package ace-window
   :after evil-leader
-  :config
-  (progn
-    (window-numbering-mode 1)
-    ;; 将数字0-9绑定到对应的 select-window-x 函数上
-    (apply #'evil-leader/set-key
-	   (cl-loop for i below 10
-		    for s = (number-to-string i)
-		    collect s
-		    collect (intern (concat "select-window-" s))))))
+  :config (progn
+	    (bind-key (vector 'remap 'other-window) #'ace-window)
+	    (evil-leader/set-key "xo" #'ace-window)))
+
+;; ace-jump-mode 设置
+(use-package ace-jump-mode
+  :bind (("C-c SPC" . #'ace-jump-mode)
+	 ("C-x SPC" . #'ace-jump-mode-pop-mark))
+  :config (evil-leader/set-key
+	    "jc" #'ace-jump-mode
+	    "jx" #'ace-jump-mode-pop-mark))
 
 ;; evil leader 配置
 (use-package evil-leader
