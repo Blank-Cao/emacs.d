@@ -17,4 +17,6 @@
 !LICENSE
 !/init/
 !/init.el
+!/benchmark-init
+!.mc-lists.el
 /init/custom.el

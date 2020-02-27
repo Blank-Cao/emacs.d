@@ -41,7 +41,7 @@
 
 ;; 设置 Hippie Expand
 (use-package hippie-expand
-  :bind ("S-TAB" . hippie-expand)
+  :bind ("<backtab>" . hippie-expand)
   :config (setq hippie-expand-try-functions-list
 		'(try-expand-debbrev
 		  try-expand-debbrev-all-buffers

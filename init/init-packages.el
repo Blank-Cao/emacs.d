@@ -1,12 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
 
-;; 软件源
-(setq package-archives '(("gnu" . "https://elpa.emacs-china.org/gnu/")
-			 ("melpa" . "https://elpa.emacs-china.org/melpa/")))
-
-;; 自动安装缺失的插件
-(setq use-package-always-ensure t)
-
 ;; 开启全局 Company 补全
 (use-package company
   :hook (after-init . global-company-mode)
@@ -69,8 +62,7 @@
 
 ;; js2-mode & js2-refactor 配置
 (use-package js2-mode
-  :mode "\\.js\\'"
-  :defer t)
+  :mode "\\.js\\'")
 (use-package js2-refactor
   :hook js2-mode
   :config (js2r-add-keybindings-with-prefix "C-c C-m"))
@@ -85,15 +77,15 @@
 	    (lambda ()
 	      (setq web-mode-markup-indent-offset 4
 	            web-mode-css-indent-offset 4 
-	            web-mode-code-indent-offset 4)))
-  :defer t)
+	            web-mode-code-indent-offset 4))))
 
 ;; ace-window 设置
 (use-package ace-window
   :after evil-leader
   :config (progn
 	    (bind-key (vector 'remap 'other-window) #'ace-window)
-	    (evil-leader/set-key "xo" #'ace-window)))
+	    (evil-leader/set-key "xo" #'ace-window))
+  :defer t)
 
 ;; ace-jump-mode 设置
 (use-package ace-jump-mode
