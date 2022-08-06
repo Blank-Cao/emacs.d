@@ -1,20 +1,39 @@
 ;;; -*- lexical-binding: t; -*-
 
-(defun open-init-files (init-files)
-  "快速打开配置文件"
-  (interactive
-   (list (completing-read
-	  "Which initialize file do you wanna (re)write: "
-	  `(,user-init-file
-	    ,custom-file
-	    ,@(directory-files "~/.emacs.d/init" t "^init-\\w+\\.el$")))))
-  (find-file init-files))
+;; (defvar init-directory (locate-user-emacs-file "init/")
+;;   "The directory where the init files are.")
 
-(defun evil-normal-state-with-company ()
-  "company 和 evil 共存时让 company 能用 <escape> 退出而不影响 evil"
+(let* ((init-files (obarray-make))
+       (find-init-files (lambda ()
+                          (dolist (file (nconc (directory-files-recursively
+                                                init-directory "^init-.+\\.el$")
+                                               (list early-init-file
+                                                     user-init-file
+                                                     custom-file))
+                                        init-files)
+                            (set (intern (file-name-nondirectory file)
+                                         init-files) file)))))
+  ;; 快速打开配置文件
+  (defun open-init-files (init-file)
+    "Open init file quickly."
+    (interactive
+     (list (completing-read
+	        "Which initialize file do you wanna (re)write: "
+            (funcall find-init-files))))
+    (unless (called-interactively-p 'interactive)
+      (funcall find-init-files))
+    (find-file (let ((file (intern-soft init-file init-files)))
+                 (if file
+                     (symbol-value file)
+                   (expand-file-name init-file init-directory))))
+    (setq init-files (obarray-make))))
+
+;; 隐藏 DOS / Windows 下的^M换行符
+(defun hidden-dos-eol ()
+  "Hide ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
-  (if (eq (company--active-p) nil)
-      (evil-normal-state)
-    (company-abort)))
+  (unless buffer-display-table
+    (setq buffer-display-table (make-display-table)))
+  (aset buffer-display-table ?\^M []))
 
 (provide 'init-def)
